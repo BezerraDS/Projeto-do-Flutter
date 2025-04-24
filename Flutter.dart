@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(myApp());
+  runApp(myApp()); // Inicia o código
 }
 
 // StatelessWidget não muda estado
 // StatefulWidget muda o estado
-class myApp extends StatefulWidget {
+class myApp extends StatefulWidget { //criação da classe app
   @override
   _myAppState createState() => _myAppState();
 }
 
-class _myAppState extends State<myApp> {
+class _myAppState extends State<myApp> { // herança 
   final List<Map<String, dynamic>> perguntas = [
     
     {
@@ -50,7 +50,7 @@ class _myAppState extends State<myApp> {
   void verificarResposta(String respostaEscolhida) {
     String respostaCorreta = perguntas[perguntaAtual]['respostaCorreta'];
 
-    setState(() {
+    setState(() { //Verificação de respostas
       if (respostaEscolhida == respostaCorreta) {
         pontos++;
         mensagem = Text('NA LATA +1 PONTO',style: TextStyle(
@@ -96,7 +96,7 @@ class _myAppState extends State<myApp> {
   }
 
   
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) { //criação do visual do app
     return MaterialApp(
       theme:ThemeData.dark(),
       darkTheme: ThemeData.dark(),
@@ -135,9 +135,9 @@ class _myAppState extends State<myApp> {
                 ),)
               )
             ],
-          ) : Column(
+          ) : Column(// todo visual em coluna
             mainAxisAlignment: MainAxisAlignment.center,
-            children: [
+            children: [//filho
               Image.network('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRZ1MjNByCtg3us8jrrTgPjDPt-aRSIoNVP_g&s', width: 100, height: 100),
               SizedBox(height: 20),
               Text(
@@ -160,7 +160,7 @@ class _myAppState extends State<myApp> {
                     child: Text(opcao)
                   )
                 );
-              }).toList(),
+              }).toList(),//lista
               SizedBox(height: 20),
               if (mensagem != null)
                 (mensagem!),
