@@ -138,7 +138,7 @@ class _myAppState extends State<myApp> {
           ) : Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Image.network('https://d9radp1mruvh.cloudfront.net/media/challenge_img/509655_shutterstock_1506580442_769367.jpg', width: 100, height: 100),
+              Image.network('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRZ1MjNByCtg3us8jrrTgPjDPt-aRSIoNVP_g&s', width: 100, height: 100),
               SizedBox(height: 20),
               Text(
                 perguntas[perguntaAtual]['pergunta'],
