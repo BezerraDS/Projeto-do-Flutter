@@ -1,0 +1,132 @@
+import 'dart:math';
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(MaterialApp(
+    home: Home(),
+  ));
+}
+
+class Home extends StatefulWidget {
+  const Home({super.key});
+  @override
+  State<Home> createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  TextEditingController _controllerNome1 = TextEditingController();
+  TextEditingController _controllerNome2 = TextEditingController();
+  String _resultado = '';
+
+  void _calcularAmor() {
+    String nome1 = _controllerNome1.text.trim();
+    String nome2 = _controllerNome2.text.trim();
+
+    if (nome1.isEmpty || nome2.isEmpty) {
+      setState(() {
+        _resultado = 'Por favor, digite os dois nomes!';
+      });
+      return;
+    }
+
+    int compatibilidade = _calcularPontuacao(nome1, nome2);
+    int amor = Random().nextInt(101);
+
+    // Mensagens personalizadas
+    String mensagemAmor;
+    if (amor >= 81) {
+      mensagemAmor = "Vocês nasceram um para o outro! 💍";
+    } else if (amor >= 61) {
+      mensagemAmor = "Tem tudo para dar certo! 💕";
+    } else if (amor >= 41) {
+      mensagemAmor = "Pode funcionar com carinho e paciência. 🌹";
+    } else if (amor >= 21) {
+      mensagemAmor = "Talvez seja melhor como amigos... 🤔";
+    } else {
+      mensagemAmor = "Amor impossível? Nunca diga nunca! 💔";
+    }
+
+    setState(() {
+      _resultado =
+          "💞 Compatibilidade entre $nome1 e $nome2: $compatibilidade%\n❤️ Amor: $amor%\n\n$mensagemAmor";
+    });
+  }
+
+  int _calcularPontuacao(String nome1, String nome2) {
+    String combinado = (nome1 + nome2).toLowerCase();
+    int soma = combinado.runes.fold(0, (prev, el) => prev + el);
+    return soma % 101;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Medidor de Amor 💘'),
+        backgroundColor: Colors.pinkAccent,
+      ),
+      backgroundColor: Colors.pink[50],
+      body: Container(
+        child: SingleChildScrollView(
+          padding: EdgeInsets.all(32),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Padding(
+                padding: EdgeInsets.only(bottom: 32),
+                child: Image.network(
+                  'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Heart_coraz%C3%B3n.svg/250px-Heart_coraz%C3%B3n.svg.png',
+                  width: 100,
+                  height: 100,
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.all(10),
+                child: Text(
+                  "Descubra o nível de amor e compatibilidade 💘",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                ),
+              ),
+              TextField(
+                decoration: InputDecoration(
+                    labelText: 'Nome da Pessoa 1',
+                    labelStyle: TextStyle(fontSize: 20)),
+                controller: _controllerNome1,
+              ),
+              TextField(
+                decoration: InputDecoration(
+                    labelText: 'Nome da Pessoa 2',
+                    labelStyle: TextStyle(fontSize: 20)),
+                controller: _controllerNome2,
+              ),
+              Padding(
+                padding: EdgeInsets.only(top: 20),
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.redAccent,
+                    foregroundColor: Colors.white,
+                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+                  ),
+                  onPressed: _calcularAmor,
+                  child: Text("Calcular Amor ❤️"),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(top: 30),
+                child: Text(
+                  _resultado,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
